@@ -18,7 +18,7 @@ const Main = () => {
                 <Assets />
 
                 {/* Liquid Staking Portfolio */}
-                <Card className="bg-black/60 border-primary/20 mb-8">
+                <Card className="bg-black/60 border-t border-l border-border mb-8">
                     <CardContent className="p-8">
                         <div className="flex items-center gap-2 mb-4">
                             <h3 className="text-2xl font-bold text-white">Stakent®</h3>

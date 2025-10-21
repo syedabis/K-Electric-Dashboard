@@ -60,171 +60,171 @@ const Assets = () => {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
                 {/* Asset Cards - Takes 3 columns */}
                 <div className="lg:col-span-3">
-                <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-4">
-                        <span className="text-sm text-muted-foreground">Recommended coins for 24 hours</span>
-                        <Badge>3 Assets</Badge>
+                    <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center gap-4">
+                            <span className="text-sm text-muted-foreground">Recommended coins for 24 hours</span>
+                            <Badge>3 Assets</Badge>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Select defaultValue="24h">
+                                <SelectTrigger>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="24h">24H</SelectItem>
+                                    <SelectItem value="7d">7D</SelectItem>
+                                    <SelectItem value="30d">30D</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            <Select defaultValue="proof-of-stake">
+                                <SelectTrigger>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="proof-of-stake">Proof of Stake</SelectItem>
+                                    <SelectItem value="proof-of-work">Proof of Work</SelectItem>
+                                    <SelectItem value="delegated">Delegated</SelectItem>
+                                </SelectContent>
+                            </Select>
+
+                            <Select defaultValue="desc">
+                                <SelectTrigger>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="desc">Desc</SelectItem>
+                                    <SelectItem value="asc">Asc</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <Select defaultValue="24h">
-                            <SelectTrigger>
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="24h">24H</SelectItem>
-                                <SelectItem value="7d">7D</SelectItem>
-                                <SelectItem value="30d">30D</SelectItem>
-                            </SelectContent>
-                        </Select>
 
-                        <Select defaultValue="proof-of-stake">
-                            <SelectTrigger>
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="proof-of-stake">Proof of Stake</SelectItem>
-                                <SelectItem value="proof-of-work">Proof of Work</SelectItem>
-                                <SelectItem value="delegated">Delegated</SelectItem>
-                            </SelectContent>
-                        </Select>
-
-                        <Select defaultValue="desc">
-                            <SelectTrigger>
-                                <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="desc">Desc</SelectItem>
-                                <SelectItem value="asc">Asc</SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                </div>
-
-                <h2 className="text-3xl font-bold mb-6">Top Staking Assets</h2>
+                    <h2 className="text-3xl font-bold mb-6">Top Staking Assets</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {/* Ethereum Card */}
-                         <Card className='rounded-3xl'>
-                        <CardContent className="p-6">
-                                 <div className="flex items-center justify-between mb-4">
-                                     <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                                             <SiEthereum className="w-5 h-5 text-primary-foreground" />
+                        {/* Ethereum Card */}
+                        <Card className='rounded-3xl border-t border-l border-border'>
+                            <CardContent className="p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                                            <SiEthereum className="w-5 h-5 text-primary-foreground" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-muted-foreground">Proof of Stake</div>
+                                            <div className="font-medium">Ethereum (ETH)</div>
+                                        </div>
+                                    </div>
+                                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
                                 </div>
-                                <div>
-                                    <div className="text-xs text-muted-foreground">Proof of Stake</div>
-                                    <div className="font-medium">Ethereum (ETH)</div>
+                                <div className="text-3xl font-bold mb-2">13.62%</div>
+                                <div className="flex items-center gap-1 mb-4">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span className="text-green-500 text-sm">6.25%</span>
                                 </div>
-                                     </div>
-                                     <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                            </div>
-                            <div className="text-3xl font-bold mb-2">13.62%</div>
-                                 <div className="flex items-center gap-1 mb-4">
-                                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                     <span className="text-green-500 text-sm">6.25%</span>
-                                 </div>
-                                 <div className="h-16 relative">
-                                     <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,956</div>
-                                     {/* Mini Chart */}
-                                     <ChartContainer config={chartConfig} className="h-full w-full">
-                                         <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                             <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
-                                             <XAxis dataKey="day" hide />
-                                             <Line 
-                                                 type="monotone" 
-                                                 dataKey="value" 
-                                                 stroke="#8b5cf6" 
-                                                 strokeWidth={2}
-                                                 dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
-                                                 activeDot={{ r: 4, fill: "#8b5cf6" }}
-                                             />
-                                         </LineChart>
-                                     </ChartContainer>
-                            </div>
-                        </CardContent>
-                    </Card>
+                                <div className="h-16 relative">
+                                    <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,956</div>
+                                    {/* Mini Chart */}
+                                    <ChartContainer config={chartConfig} className="h-full w-full">
+                                        <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
+                                            <XAxis dataKey="day" hide />
+                                            <Line
+                                                type="monotone"
+                                                dataKey="value"
+                                                stroke="#8b5cf6"
+                                                strokeWidth={2}
+                                                dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                                activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                            />
+                                        </LineChart>
+                                    </ChartContainer>
+                                </div>
+                            </CardContent>
+                        </Card>
 
-                    {/* BNB Chain Card */}
-                         <Card className='rounded-3xl'>
-                        <CardContent className="p-6">
-                                 <div className="flex items-center justify-between mb-4">
-                                     <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
-                                             <SiBinance className="w-5 h-5 text-white" />
+                        {/* BNB Chain Card */}
+                        <Card className='rounded-3xl border-t border-l border-border'>
+                            <CardContent className="p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
+                                            <SiBinance className="w-5 h-5 text-white" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-muted-foreground">Proof of Stake</div>
+                                            <div className="font-medium">BNB Chain</div>
+                                        </div>
+                                    </div>
+                                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
                                 </div>
-                                <div>
-                                    <div className="text-xs text-muted-foreground">Proof of Stake</div>
-                                    <div className="font-medium">BNB Chain</div>
+                                <div className="text-3xl font-bold mb-2">12.72%</div>
+                                <div className="flex items-center gap-1 mb-4">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span className="text-green-500 text-sm">5.67%</span>
                                 </div>
-                                     </div>
-                                     <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                            </div>
-                            <div className="text-3xl font-bold mb-2">12.72%</div>
-                                 <div className="flex items-center gap-1 mb-4">
-                                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                     <span className="text-green-500 text-sm">5.67%</span>
-                                 </div>
-                                 <div className="h-16 relative">
-                                     <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,009</div>
-                                     {/* Mini Chart */}
-                                     <ChartContainer config={chartConfig} className="h-full w-full">
-                                         <LineChart data={bnbData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                             <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
-                                             <XAxis dataKey="day" hide />
-                                             <Line 
-                                                 type="monotone" 
-                                                 dataKey="value" 
-                                                 stroke="#8b5cf6" 
-                                                 strokeWidth={2}
-                                                 dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
-                                                 activeDot={{ r: 4, fill: "#8b5cf6" }}
-                                             />
-                                         </LineChart>
-                                     </ChartContainer>
-                            </div>
-                        </CardContent>
-                    </Card>
+                                <div className="h-16 relative">
+                                    <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,009</div>
+                                    {/* Mini Chart */}
+                                    <ChartContainer config={chartConfig} className="h-full w-full">
+                                        <LineChart data={bnbData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
+                                            <XAxis dataKey="day" hide />
+                                            <Line
+                                                type="monotone"
+                                                dataKey="value"
+                                                stroke="#8b5cf6"
+                                                strokeWidth={2}
+                                                dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                                activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                            />
+                                        </LineChart>
+                                    </ChartContainer>
+                                </div>
+                            </CardContent>
+                        </Card>
 
-                    {/* Polygon Card */}
-                         <Card className='rounded-3xl'>
-                        <CardContent className="p-6">
-                                 <div className="flex items-center justify-between mb-4">
-                                     <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
-                                             <SiPolygon className="w-5 h-5 text-white" />
+                        {/* Polygon Card */}
+                        <Card className='rounded-3xl border-t border-l border-border'>
+                            <CardContent className="p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+                                            <SiPolygon className="w-5 h-5 text-white" />
+                                        </div>
+                                        <div>
+                                            <div className="text-xs text-muted-foreground">Proof of Stake</div>
+                                            <div className="font-medium">Polygon (Matic)</div>
+                                        </div>
+                                    </div>
+                                    <TrendingDown className="w-4 h-4 text-muted-foreground" />
                                 </div>
-                                <div>
-                                    <div className="text-xs text-muted-foreground">Proof of Stake</div>
-                                    <div className="font-medium">Polygon (Matic)</div>
+                                <div className="text-3xl font-bold mb-2">6.29%</div>
+                                <div className="flex items-center gap-1 mb-4">
+                                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                                    <span className="text-red-500 text-sm">1.89%</span>
                                 </div>
-                                     </div>
-                                     <TrendingDown className="w-4 h-4 text-muted-foreground" />
-                            </div>
-                            <div className="text-3xl font-bold mb-2">6.29%</div>
-                                 <div className="flex items-center gap-1 mb-4">
-                                     <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                                     <span className="text-red-500 text-sm">1.89%</span>
-                                 </div>
-                                 <div className="h-16 relative">
-                                     <div className="absolute top-2 right-2 text-xs text-red-500 font-medium z-10">-$0,987</div>
-                                     {/* Mini Chart */}
-                                     <ChartContainer config={redChartConfig} className="h-full w-full">
-                                         <LineChart data={polygonData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                             <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
-                                             <XAxis dataKey="day" hide />
-                                             <Line 
-                                                 type="monotone" 
-                                                 dataKey="value" 
-                                                 stroke="#ef4444" 
-                                                 strokeWidth={2}
-                                                 dot={{ fill: "#ef4444", strokeWidth: 2, r: 3 }}
-                                                 activeDot={{ r: 4, fill: "#ef4444" }}
-                                             />
-                                         </LineChart>
-                                     </ChartContainer>
-                                 </div>
-                             </CardContent>
-                         </Card>
+                                <div className="h-16 relative">
+                                    <div className="absolute top-2 right-2 text-xs text-red-500 font-medium z-10">-$0,987</div>
+                                    {/* Mini Chart */}
+                                    <ChartContainer config={redChartConfig} className="h-full w-full">
+                                        <LineChart data={polygonData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                            <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
+                                            <XAxis dataKey="day" hide />
+                                            <Line
+                                                type="monotone"
+                                                dataKey="value"
+                                                stroke="#ef4444"
+                                                strokeWidth={2}
+                                                dot={{ fill: "#ef4444", strokeWidth: 2, r: 3 }}
+                                                activeDot={{ r: 4, fill: "#ef4444" }}
+                                            />
+                                        </LineChart>
+                                    </ChartContainer>
+                                </div>
+                            </CardContent>
+                        </Card>
                     </div>
                 </div>
 

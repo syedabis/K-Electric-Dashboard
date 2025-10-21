@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Separator } from '../ui/separator'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { GiWallet } from "react-icons/gi";
+import { RiSettings3Fill } from "react-icons/ri";
 
 
 const Header = () => {
@@ -39,8 +40,8 @@ const Header = () => {
                     </Button>
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <Button variant="ghost" size="icon">
+                <div className="flex items-center gap-2">
+                    <Button variant="ghost" size="icon" className='border-t border-l border-border bg-muted hover:bg-muted/80'>
                         <Bell className="w-4 h-4" />
                     </Button>
                     <div className="relative">
@@ -51,11 +52,11 @@ const Header = () => {
                             className="pl-10 pr-4 py-2 bg-muted rounded-lg text-sm w-64"
                         />
                     </div>
-                    <Button variant="ghost" size="icon">
+                    <Button variant="ghost" size="icon" className='border-t border-l border-border bg-muted hover:bg-muted/80'>
                         <RefreshCw className="w-4 h-4" />
                     </Button>
-                    <Button variant="ghost" size="icon">
-                        <Settings className="w-4 h-4" />
+                    <Button variant="ghost" className='border-t border-l border-border bg-muted hover:bg-muted/80'>
+                        Settings <RiSettings3Fill className="w-4 h-4" />
                     </Button>
                 </div>
             </header></div>
