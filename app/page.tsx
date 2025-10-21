@@ -251,7 +251,7 @@ function DashboardContent() {
         <SidebarInset>
           {/* Sidebar Toggle Button - Fixed to viewport */}
           <div
-            className="fixed top-1/2 -translate-y-1/2 z-50 transition-all duration-200"
+            className="fixed top-1/2 -translate-y-1/2 z-50 transition-all duration-200 md:hidden"
             style={{
               left: state === 'collapsed' ? 'calc(4rem - 18px)' : 'calc(16rem - 12px)'
             }}
