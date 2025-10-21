@@ -1,103 +1,285 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import * as React from "react"
+import {
+  Zap,
+  ChevronsUpDown,
+  Diamond,
+  Circle,
+  Home,
+  Coins,
+  Calculator,
+  Database,
+  Bolt,
+  Check
+} from "lucide-react";
+import { SiEthereum } from "react-icons/si";
+import { FaHillAvalanche } from "react-icons/fa6";
+import { SiSolana } from "react-icons/si";
+import { SiPolygon } from "react-icons/si";
+import { SidebarProvider, Sidebar, SidebarContent, SidebarHeader, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarMenuBadge, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import Header from "@/components/layout/Header";
+import Main from "@/components/Main";
+import { useSidebar } from "@/components/ui/sidebar";
+
+const organizations = [
+  {
+    value: "stakent-inc",
+    label: "Stakent Inc",
+    description: "Enterprise",
+    icon: Diamond,
+  },
+  {
+    value: "crypto-ventures",
+    label: "Crypto Ventures",
+    description: "Pro",
+    icon: Circle,
+  },
+  {
+    value: "blockchain-labs",
+    label: "Blockchain Labs",
+    description: "Team",
+    icon: Bolt,
+  },
+  {
+    value: "defi-solutions",
+    label: "DeFi Solutions",
+    description: "Enterprise",
+    icon: Database,
+  },
+]
+
+function DashboardContent() {
+  const [open, setOpen] = React.useState(false)
+  const [value, setValue] = React.useState("stakent-inc")
+  const { state, toggleSidebar } = useSidebar()
+  
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+      <div className="dark min-h-screen bg-background text-foreground">
+        <div className="flex">
+          {/* Left Sidebar */}
+          <Sidebar 
+            collapsible="icon"
+            onMouseEnter={() => state === 'collapsed' && toggleSidebar()}
+            onMouseLeave={() => state === 'expanded' && toggleSidebar()}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <SidebarHeader className="border-b border-border my-3">
+              {/* Organization Combobox */}
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-full justify-between px-2 py-2 h-auto group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:justify-center"
+                  >
+                    <div className="flex items-center gap-3 group-data-[collapsible=icon]:gap-0">
+                      <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                        {React.createElement(organizations.find((org) => org.value === value)?.icon || Diamond, {
+                          className: "w-5 h-5 text-primary-foreground"
+                        })}
+                      </div>
+                      <div className="flex-1 min-w-0 group-data-[collapsible=icon]:hidden text-left">
+                        <div className="font-semibold text-sm truncate">
+                          {organizations.find((org) => org.value === value)?.label}
+                        </div>
+                        <div className="text-xs text-muted-foreground truncate">
+                          {organizations.find((org) => org.value === value)?.description}
+                        </div>
+                      </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+                    <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50 group-data-[collapsible=icon]:hidden" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[280px] p-0" side="right" align="start">
+                  <Command>
+                    <CommandInput placeholder="Search organizations..." className="h-9" />
+                    <CommandList>
+                      <CommandEmpty>No organization found.</CommandEmpty>
+                      <CommandGroup>
+                        {organizations.map((organization) => (
+                          <CommandItem
+                            key={organization.value}
+                            value={organization.value}
+                            onSelect={(currentValue) => {
+                              setValue(currentValue === value ? "" : currentValue)
+                              setOpen(false)
+                            }}
+                            className="flex items-center gap-3"
+                          >
+                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                              {React.createElement(organization.icon, {
+                                className: "w-5 h-5 text-primary-foreground"
+                              })}
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-semibold text-sm">{organization.label}</div>
+                              <div className="text-xs text-muted-foreground">{organization.description}</div>
+                            </div>
+                            <Check
+                              className={cn(
+                                "ml-auto h-4 w-4",
+                                value === organization.value ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </SidebarHeader>
+
+            <SidebarContent>
+              <Tabs defaultValue="staking" className="w-full group-data-[collapsible=icon]:hidden">
+                <TabsList className="grid w-full grid-cols-2 bg-muted/50 p-1">
+                  <TabsTrigger value="staking" className="data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">Staking</TabsTrigger>
+                  <TabsTrigger value="stablecoin" className="data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm">Stablecoin</TabsTrigger>
+                </TabsList>
+              </Tabs>
+
+              <SidebarGroup>
+                <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton isActive tooltip="Dashboard">
+                        <Home className="w-4 h-4" />
+                        <span>Dashboard</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Assets">
+                        <Coins className="w-4 h-4" />
+                        <span>Assets</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Staking Providers">
+                        <Circle className="w-4 h-4" />
+                        <span>Staking Providers</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Staking Calculator">
+                        <Calculator className="w-4 h-4" />
+                        <span>Staking Calculator</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Data API">
+                        <Database className="w-4 h-4" />
+                        <span>Data API</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Liquid Staking">
+                        <Bolt className="w-4 h-4" />
+                        <span>Liquid Staking</span>
+                        <SidebarMenuBadge>
+                          <Badge variant="secondary" className="text-xs">Beta</Badge>
+                        </SidebarMenuBadge>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+
+              <SidebarGroup>
+                <SidebarGroupLabel>
+                  Active Staking
+                  <SidebarMenuBadge>
+                    <Badge variant="default">6</Badge>
+                  </SidebarMenuBadge>
+                </SidebarGroupLabel>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Ethereum - $7,699.00">
+                        <SiEthereum className="w-4 h-4" />
+                        <span className="text-sm">Ethereum</span>
+                        <span className="text-sm font-medium ml-auto">$7,699.00</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Avalanche - $1,340.00">
+                        <FaHillAvalanche className="w-4 h-4" />
+                        <span className="text-sm">Avalanche</span>
+                        <span className="text-sm font-medium ml-auto">$1,340.00</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Polygon - $640.00">
+                        <SiPolygon className="w-4 h-4" />
+                        <span className="text-sm">Polygon</span>
+                        <span className="text-sm font-medium ml-auto">$640.00</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                      <SidebarMenuButton tooltip="Solana - $980.00">
+                        <SiSolana className="w-4 h-4" />
+                        <span className="text-sm">Solana</span>
+                        <span className="text-sm font-medium ml-auto">$980.00</span>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+
+            <SidebarFooter>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton tooltip="Activate Super - Unlock all features on Stakent">
+                    <Zap className="w-4 h-4 text-primary" />
+                    <span className="font-medium">Activate Super</span>
+                    <p className="text-sm text-muted-foreground">Unlock all features on Stakent</p>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarFooter>
+          </Sidebar>
+
+          {/* Main Content */}
+          <SidebarInset>
+            {/* Sidebar Toggle Button - Fixed to viewport */}
+            <div 
+              className="fixed top-1/2 -translate-y-1/2 z-50 transition-all duration-200"
+              style={{ 
+                left: state === 'collapsed' ? 'calc(4rem - 18px)' : 'calc(16rem - 12px)'
+              }}
+            >
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-6 w-6 rounded-none bg-background shadow-lg hover:bg-muted"
+                onClick={toggleSidebar}
+              >
+                <SidebarTrigger />
+              </Button>
+            </div>
+
+            {/* Top Header */}
+            <Header />
+
+            <Main />
+          </SidebarInset>
+        </div>
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <SidebarProvider>
+      <DashboardContent />
+    </SidebarProvider>
   );
 }
