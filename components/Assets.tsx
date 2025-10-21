@@ -126,20 +126,19 @@ const Assets = () => {
                                 <div className="h-16 relative">
                                     <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,956</div>
                                     {/* Mini Chart */}
-                                    <ChartContainer config={chartConfig} className="h-full w-full">
-                                        <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                            <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
-                                            <XAxis dataKey="day" hide />
-                                            <Line
-                                                type="monotone"
-                                                dataKey="value"
-                                                stroke="#8b5cf6"
-                                                strokeWidth={2}
-                                                dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
-                                                activeDot={{ r: 4, fill: "#8b5cf6" }}
-                                            />
-                                        </LineChart>
-                                    </ChartContainer>
+                                     <ChartContainer config={chartConfig} className="h-full w-full">
+                                         <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                             <XAxis dataKey="day" hide />
+                                             <Line 
+                                                 type="monotone" 
+                                                 dataKey="value" 
+                                                 stroke="#8b5cf6" 
+                                                 strokeWidth={2}
+                                                 dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                                 activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                             />
+                                         </LineChart>
+                                     </ChartContainer>
                                 </div>
                             </CardContent>
                         </Card>
@@ -167,20 +166,19 @@ const Assets = () => {
                                 <div className="h-16 relative">
                                     <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,009</div>
                                     {/* Mini Chart */}
-                                    <ChartContainer config={chartConfig} className="h-full w-full">
-                                        <LineChart data={bnbData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                            <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
-                                            <XAxis dataKey="day" hide />
-                                            <Line
-                                                type="monotone"
-                                                dataKey="value"
-                                                stroke="#8b5cf6"
-                                                strokeWidth={2}
-                                                dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
-                                                activeDot={{ r: 4, fill: "#8b5cf6" }}
-                                            />
-                                        </LineChart>
-                                    </ChartContainer>
+                                     <ChartContainer config={chartConfig} className="h-full w-full">
+                                         <LineChart data={bnbData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                             <XAxis dataKey="day" hide />
+                                             <Line 
+                                                 type="monotone" 
+                                                 dataKey="value" 
+                                                 stroke="#8b5cf6" 
+                                                 strokeWidth={2}
+                                                 dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                                 activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                             />
+                                         </LineChart>
+                                     </ChartContainer>
                                 </div>
                             </CardContent>
                         </Card>
@@ -208,20 +206,19 @@ const Assets = () => {
                                 <div className="h-16 relative">
                                     <div className="absolute top-2 right-2 text-xs text-red-500 font-medium z-10">-$0,987</div>
                                     {/* Mini Chart */}
-                                    <ChartContainer config={redChartConfig} className="h-full w-full">
-                                        <LineChart data={polygonData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                            <CartesianGrid strokeDasharray="2 2" stroke="#9ca3af" />
-                                            <XAxis dataKey="day" hide />
-                                            <Line
-                                                type="monotone"
-                                                dataKey="value"
-                                                stroke="#ef4444"
-                                                strokeWidth={2}
-                                                dot={{ fill: "#ef4444", strokeWidth: 2, r: 3 }}
-                                                activeDot={{ r: 4, fill: "#ef4444" }}
-                                            />
-                                        </LineChart>
-                                    </ChartContainer>
+                                     <ChartContainer config={redChartConfig} className="h-full w-full">
+                                         <LineChart data={polygonData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                                             <XAxis dataKey="day" hide />
+                                             <Line 
+                                                 type="monotone" 
+                                                 dataKey="value" 
+                                                 stroke="#ef4444" 
+                                                 strokeWidth={2}
+                                                 dot={{ fill: "#ef4444", strokeWidth: 2, r: 3 }}
+                                                 activeDot={{ r: 4, fill: "#ef4444" }}
+                                             />
+                                         </LineChart>
+                                     </ChartContainer>
                                 </div>
                             </CardContent>
                         </Card>
