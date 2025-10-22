@@ -32,7 +32,7 @@ const Header = () => {
                         <IoMdArrowDropdown className="w-6 h-6" />
                     </div>
 
-                    <Separator orientation='vertical' className='h-4 w-px bg-white' />
+                    <div className="h-8 w-px bg-linear-to-b from-border/40 via-border to-border/40 shrink-0" />
 
                     <Button className='rounded-2xl'>
                         Deposit
