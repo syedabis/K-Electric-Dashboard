@@ -4,32 +4,46 @@ import { Button } from '../ui/button'
 import { Bell } from 'lucide-react'
 import { Search } from 'lucide-react'
 import { RefreshCw } from 'lucide-react'
-import { Settings } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
-import { Separator } from '../ui/separator'
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { GiWallet } from "react-icons/gi";
 import { RiSettings3Fill } from "react-icons/ri";
+import { SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { useUser } from '@clerk/nextjs'
 
 
 const Header = () => {
+    const { user } = useUser()
     return (
         <div>
             <header className="flex items-center justify-between px-6 py-4 border-b border-border relative z-10">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-3">
-                        <Avatar className='w-10 h-10'>
-                            <AvatarImage src="/images/boy.png" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
+                        <SignedOut>
+                            <SignInButton />
+                            <SignUpButton>
+                                <button className="bg-[#6c47ff] text-ceramic-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
+                                    Sign Up
+                                </button>
+                            </SignUpButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <UserButton
+                                appearance={{
+                                    elements: {
+                                        userButtonAvatarBox: {
+                                            width: "48px",
+                                            height: "48px",
+                                        },
+                                    },
+                                }}
+                            />
+
+                        </SignedIn>
                         <div>
                             <div className="flex items-center gap-2">
-                                <span className="font-medium">Ryan Crawford</span>
-                                <Badge variant='outline'>PRO</Badge>
+                                <span className="font-medium">{user?.fullName}</span>
                             </div>
-                            <span className="text-sm text-muted-foreground">@ryanf7</span>
                         </div>
-                        <IoMdArrowDropdown className="w-6 h-6" />
                     </div>
 
                     <div className="h-8 w-px bg-linear-to-b from-border/40 via-border to-border/40 shrink-0" />
