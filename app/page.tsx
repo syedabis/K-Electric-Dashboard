@@ -69,7 +69,7 @@ function DashboardContent() {
           onMouseEnter={() => state === 'collapsed' && toggleSidebar()}
           onMouseLeave={() => state === 'expanded' && toggleSidebar()}
         >
-          <SidebarHeader className="border-b border-border my-3">
+          <SidebarHeader className={`border-b border-border ${state === 'collapsed' ? ' my-4' : 'my-3'}`}>
             {/* Organization Combobox */}
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
@@ -278,7 +278,7 @@ function DashboardContent() {
 
 export default function Dashboard() {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <DashboardContent />
     </SidebarProvider>
   );
