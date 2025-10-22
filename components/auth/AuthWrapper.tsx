@@ -26,8 +26,24 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     // User is not signed in - show sign-in/sign-up options
     if (!user) {
         return (
-            <div className="min-h-screen bg-background flex items-center justify-center p-4">
-                <Card className="w-full max-w-md">
+            <div 
+                className="min-h-screen bg-background p-4"
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100vh'
+                }}
+            >
+                <Card 
+                    className="w-full max-w-md border border-destructive text-destructive"
+                    style={{
+                        margin: '0 auto',
+                        width: '100%',
+                        maxWidth: '28rem'
+                    }}
+                >
                     <CardHeader className="text-center">
                         <CardTitle className="flex items-center justify-center gap-2">
                             <Shield className="w-6 h-6 text-primary" />
@@ -63,9 +79,24 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
     // User is signed in but not admin - show access denied message
     if (!isAdmin) {
         return (
-            <div className="w-full min-h-screen bg-background flex items-center justify-center p-4">
-                <div className="w-full max-w-md mx-auto">
-                    <Card className="w-full">
+            <div 
+                className="min-h-screen bg-background p-4"
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100vh'
+                }}
+            >
+                <Card 
+                    className="w-full max-w-md border border-destructive text-destructive"
+                    style={{
+                        margin: '0 auto',
+                        width: '100%',
+                        maxWidth: '28rem'
+                    }}
+                >
                         <CardHeader className="text-center">
                             <CardTitle className="flex items-center justify-center gap-2 text-destructive">
                                 <Shield className="w-6 h-6" />
@@ -100,7 +131,6 @@ export default function AuthWrapper({ children }: AuthWrapperProps) {
                             </div>
                         </CardContent>
                     </Card>
-                </div>
             </div>
         );
     }
