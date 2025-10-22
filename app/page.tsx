@@ -27,6 +27,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/layout/Header";
 import Main from "@/components/Main";
 import { useSidebar } from "@/components/ui/sidebar";
+import AuthWrapper from "@/components/auth/AuthWrapper";
 
 const organizations = [
   {
@@ -61,14 +62,15 @@ function DashboardContent() {
   const { state, toggleSidebar } = useSidebar()
 
   return (
-    <div className="dark min-h-screen bg-background text-foreground">
-      <div className="flex">
-        {/* Left Sidebar */}
-        <Sidebar
-          collapsible="icon"
-          onMouseEnter={() => state === 'collapsed' && toggleSidebar()}
-          onMouseLeave={() => state === 'expanded' && toggleSidebar()}
-        >
+    <AuthWrapper>
+      <div className="dark min-h-screen bg-background text-foreground">
+        <div className="flex">
+          {/* Left Sidebar */}
+          <Sidebar
+            collapsible="icon"
+            onMouseEnter={() => state === 'collapsed' && toggleSidebar()}
+            onMouseLeave={() => state === 'expanded' && toggleSidebar()}
+          >
           <SidebarHeader className={`border-b border-border ${state === 'collapsed' ? ' my-4' : 'my-3'}`}>
             {/* Organization Combobox */}
             <Popover open={open} onOpenChange={setOpen}>
@@ -273,6 +275,7 @@ function DashboardContent() {
         </SidebarInset>
       </div>
     </div>
+    </AuthWrapper>
   );
 }
 
