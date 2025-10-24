@@ -1,13 +1,10 @@
 import React from 'react'
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { TrendingUp, TrendingDown, Wallet, Lock } from 'lucide-react';
-import { SiEthereum } from "react-icons/si";
-import { SiBinance } from "react-icons/si";
-import { SiPolygon } from "react-icons/si";
-import { LineChart, Line, CartesianGrid, XAxis } from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import { ChartContainer, ChartConfig } from "@/components/ui/chart";
+import { Button } from './ui/button';
+import Image from 'next/image';
+import { ScrollArea } from './ui/scroll-area';
 
 // Chart data for each asset
 const ethereumData = [
@@ -20,6 +17,17 @@ const ethereumData = [
     { day: "7", value: 20 },
 ];
 
+// MTBF, MTBR, and MTTF data with three lines
+const mtbfMtbrData = [
+    { day: "1", mtbf: 2.1, mtbr: 1.8, mttf: 2.5 },
+    { day: "2", mtbf: 2.3, mtbr: 1.9, mttf: 2.7 },
+    { day: "3", mtbf: 2.0, mtbr: 1.7, mttf: 2.3 },
+    { day: "4", mtbf: 2.4, mtbr: 2.0, mttf: 2.8 },
+    { day: "5", mtbf: 2.2, mtbr: 1.8, mttf: 2.6 },
+    { day: "6", mtbf: 2.5, mtbr: 2.1, mttf: 2.9 },
+    { day: "7", mtbf: 2.3, mtbr: 1.9, mttf: 2.7 },
+];
+
 const bnbData = [
     { day: "1", value: 45 },
     { day: "2", value: 35 },
@@ -30,16 +38,6 @@ const bnbData = [
     { day: "7", value: 20 },
 ];
 
-const polygonData = [
-    { day: "1", value: 30 },
-    { day: "2", value: 40 },
-    { day: "3", value: 35 },
-    { day: "4", value: 45 },
-    { day: "5", value: 40 },
-    { day: "6", value: 50 },
-    { day: "7", value: 55 },
-];
-
 const chartConfig = {
     value: {
         label: "Value",
@@ -47,228 +45,352 @@ const chartConfig = {
     },
 } satisfies ChartConfig;
 
-const redChartConfig = {
-    value: {
-        label: "Value",
-        color: "#ef4444",
+const mtbfMtbrChartConfig = {
+    mtbf: {
+        label: "MTBF",
+        color: "#8b5cf6",
+    },
+    mtbr: {
+        label: "MTBR", 
+        color: "#10b981",
+    },
+    mttf: {
+        label: "MTTF",
+        color: "#f59e0b",
+    },
+    time: {
+        label: "Time (Hours)",
+        color: "#6b7280",
+    },
+    day: {
+        label: "Days",
+        color: "#6b7280",
     },
 } satisfies ChartConfig;
 
 const Assets = () => {
     return (
-        <div>
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-                {/* Asset Cards - Takes 3 columns */}
-                <div className="lg:col-span-3">
-                    <div className="flex items-center justify-between mb-6">
-                        <div className="flex items-center gap-4">
-                            <span className="text-sm text-muted-foreground">Recommended coins for 24 hours</span>
-                            <Badge>3 Assets</Badge>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Select defaultValue="24h">
-                                <SelectTrigger>
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="24h">24H</SelectItem>
-                                    <SelectItem value="7d">7D</SelectItem>
-                                    <SelectItem value="30d">30D</SelectItem>
-                                </SelectContent>
-                            </Select>
-
-                            <Select defaultValue="proof-of-stake">
-                                <SelectTrigger>
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="proof-of-stake">Proof of Stake</SelectItem>
-                                    <SelectItem value="proof-of-work">Proof of Work</SelectItem>
-                                    <SelectItem value="delegated">Delegated</SelectItem>
-                                </SelectContent>
-                            </Select>
-
-                            <Select defaultValue="desc">
-                                <SelectTrigger>
-                                    <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="desc">Desc</SelectItem>
-                                    <SelectItem value="asc">Asc</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    </div>
-
-                    <h2 className="text-3xl font-bold mb-6">Top Staking Assets</h2>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {/* Ethereum Card */}
-                        <Card className='rounded-3xl border-t border-l border-border'>
-                            <CardContent className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                                            <SiEthereum className="w-5 h-5 text-primary-foreground" />
-                                        </div>
-                                        <div>
-                                            <div className="text-xs text-muted-foreground">Proof of Stake</div>
-                                            <div className="font-medium">Ethereum (ETH)</div>
-                                        </div>
-                                    </div>
-                                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                                </div>
-                                <div className="text-3xl font-bold mb-2">13.62%</div>
-                                <div className="flex items-center gap-1 mb-4">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                    <span className="text-green-500 text-sm">6.25%</span>
-                                </div>
-                                <div className="h-16 relative">
-                                    <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,956</div>
-                                    {/* Mini Chart */}
-                                     <ChartContainer config={chartConfig} className="h-full w-full">
-                                         <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                             <XAxis dataKey="day" hide />
-                                             <Line 
-                                                 type="monotone" 
-                                                 dataKey="value" 
-                                                 stroke="#8b5cf6" 
-                                                 strokeWidth={2}
-                                                 dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
-                                                 activeDot={{ r: 4, fill: "#8b5cf6" }}
-                                             />
-                                         </LineChart>
-                                     </ChartContainer>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* BNB Chain Card */}
-                        <Card className='rounded-3xl border-t border-l border-border'>
-                            <CardContent className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
-                                            <SiBinance className="w-5 h-5 text-white" />
-                                        </div>
-                                        <div>
-                                            <div className="text-xs text-muted-foreground">Proof of Stake</div>
-                                            <div className="font-medium">BNB Chain</div>
-                                        </div>
-                                    </div>
-                                    <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                                </div>
-                                <div className="text-3xl font-bold mb-2">12.72%</div>
-                                <div className="flex items-center gap-1 mb-4">
-                                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                    <span className="text-green-500 text-sm">5.67%</span>
-                                </div>
-                                <div className="h-16 relative">
-                                    <div className="absolute top-2 right-2 text-xs text-primary font-medium z-10">+$2,009</div>
-                                    {/* Mini Chart */}
-                                     <ChartContainer config={chartConfig} className="h-full w-full">
-                                         <LineChart data={bnbData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                             <XAxis dataKey="day" hide />
-                                             <Line 
-                                                 type="monotone" 
-                                                 dataKey="value" 
-                                                 stroke="#8b5cf6" 
-                                                 strokeWidth={2}
-                                                 dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
-                                                 activeDot={{ r: 4, fill: "#8b5cf6" }}
-                                             />
-                                         </LineChart>
-                                     </ChartContainer>
-                                </div>
-                            </CardContent>
-                        </Card>
-
-                        {/* Polygon Card */}
-                        <Card className='rounded-3xl border-t border-l border-border'>
-                            <CardContent className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
-                                            <SiPolygon className="w-5 h-5 text-white" />
-                                        </div>
-                                        <div>
-                                            <div className="text-xs text-muted-foreground">Proof of Stake</div>
-                                            <div className="font-medium">Polygon (Matic)</div>
-                                        </div>
-                                    </div>
-                                    <TrendingDown className="w-4 h-4 text-muted-foreground" />
-                                </div>
-                                <div className="text-3xl font-bold mb-2">6.29%</div>
-                                <div className="flex items-center gap-1 mb-4">
-                                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                                    <span className="text-red-500 text-sm">1.89%</span>
-                                </div>
-                                <div className="h-16 relative">
-                                    <div className="absolute top-2 right-2 text-xs text-red-500 font-medium z-10">-$0,987</div>
-                                    {/* Mini Chart */}
-                                     <ChartContainer config={redChartConfig} className="h-full w-full">
-                                         <LineChart data={polygonData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                                             <XAxis dataKey="day" hide />
-                                             <Line 
-                                                 type="monotone" 
-                                                 dataKey="value" 
-                                                 stroke="#ef4444" 
-                                                 strokeWidth={2}
-                                                 dot={{ fill: "#ef4444", strokeWidth: 2, r: 3 }}
-                                                 activeDot={{ r: 4, fill: "#ef4444" }}
-                                             />
-                                         </LineChart>
-                                     </ChartContainer>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    </div>
+        <div className="w-full p-4 lg:p-6 font-poppins">
+            <div className="flex items-center justify-between gap-4 mb-6">
+                <h2 className="text-3xl font-bold">Assets Management</h2>
+                <ul>
+                    <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</li>
+                    <li>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</li>
+                </ul>
+                <div className='flex flex-col gap-2'>
+                    <Button variant="outline" className='w-24'>Asset Type</Button>
+                    <Button variant="outline" className='w-24'>Location</Button>
                 </div>
+                <Image src="/images/k-electric.png" alt="Assets" width={300} height={200} className='w-[200px] h-[100px]' />
+            </div>
 
-                {/* Image Card - Takes 1 column and full height */}
-                <div className="lg:col-span-1 border border-white/20 rounded-2xl">
-                    <Card
-                        className="h-full relative"
-                        style={{
-                            backgroundImage: "url('/images/stars.jpg')",
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                        }}
-                    >
-                        {/* Black overlay for better text visibility */}
-                        <div className="absolute inset-0 bg-black/60 rounded-lg"></div>
-                        <CardContent className="h-full flex flex-col justify-between relative z-10">
-                            {/* Top Section - Logo and Badge */}
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                                        <span className="text-black font-bold text-lg">S</span>
-                                    </div>
-                                </div>
-                                <Badge className="bg-purple-500 text-white">New</Badge>
-                            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Asset Utilization Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-2 flex-col">
+                            <div className="text-3xl font-bold">Asset Utilization</div>
+                            <div className="text-3xl font-bold text-green-400">95%</div>
+                        </div>
+                        <div className="h-[120px] relative px-4">
+                            {/* Mini Chart */}
+                            <ChartContainer config={chartConfig} className="h-full w-full">
+                                <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} height={120}>
+                                    <CartesianGrid />
+                                    <XAxis dataKey="day" hide />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
 
-                            {/* Middle Section - Title and Description */}
-                            <div className="flex-1 flex flex-col justify-center">
-                                <h3 className="text-white text-xl font-bold mb-4">Liquid Staking Portfolio</h3>
-                                <p className="text-white/80 text-base leading-relaxed">An all-in-one portfolio that helps you make smarter investments into Ethereum Liquid Staking</p>
-                            </div>
+                {/* Total Assets Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-2 flex-col">
+                            <div className="text-3xl font-bold">Total Assets</div>
+                            <div className="text-3xl font-bold text-green-400">100</div>
+                        </div>
+                        <div className="h-[120px] relative px-4">
+                            {/* Mini Chart */}
+                            <ChartContainer config={chartConfig} className="h-full w-full">
+                                <LineChart data={bnbData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} height={120}>
+                                    <CartesianGrid />
+                                    <XAxis dataKey="day" hide />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
 
-                            {/* Bottom Section - Buttons */}
-                            <div className="flex flex-col gap-3">
-                                <button className="w-full bg-purple-500 hover:bg-purple-600 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors">
-                                    <Wallet className="w-4 h-4" />
-                                    Connect with Wallet
-                                </button>
-                                <button className="w-full bg-white/10 backdrop-blur-sm border border-white/20 text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors">
-                                    <Lock className="w-4 h-4" />
-                                    Enter a Wallet Address
-                                </button>
-                            </div>
-                        </CardContent>
-                    </Card>
-                </div>
+                {/* MTBF and MTBR Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-4 flex-col">
+                            <div className="text-xl font-bold">MTBF and MTBR</div>
+                            <div className="text-xl font-bold text-green-400">2.1Hrs</div>
+                        </div>
+                        <div className="h-[150px] relative w-full px-2">
+                            {/* Dual Line Chart - Days on X, Values on Y */}
+                            <ChartContainer config={mtbfMtbrChartConfig} className="h-full w-full">
+                                <LineChart
+                                    data={mtbfMtbrData}
+                                    margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                                    width={undefined}
+                                    height={150}
+                                >
+                                    <CartesianGrid />
+                                    <XAxis
+                                        dataKey="day"
+                                        stroke="#6b7280"
+                                        fontSize={10}
+                                        tickLine={{ stroke: "#6b7280" }}
+                                        axisLine={{ stroke: "#6b7280" }}
+                                    />
+                                    <YAxis
+                                        stroke="#6b7280"
+                                        fontSize={10}
+                                        tickLine={{ stroke: "#6b7280" }}
+                                        axisLine={{ stroke: "#6b7280" }}
+                                        width={30}
+                                        domain={[1.5, 2.6]}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbf"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbr"
+                                        stroke="#10b981"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#10b981", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#10b981" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Alerts Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 flex-col px-2 mb-2">
+                            <div className="text-3xl font-bold">Alerts</div>
+                        </div>
+                        <div className="h-auto relative px-4">
+                            <ScrollArea className='h-[150px] w-full'>
+                                <ul className='space-y-2'>
+                                    <li>🔴 Asset ID: TR-001 (Transformer) - Health: 15% - Failure Risk: HIGH</li>
+                                    <li>🔴Asset ID: GEN-005 (Generator) - Maintenance Overdue: 3 days</li>
+                                    <li>🟡 Asset ID: CBL-008 (Cable) - Health: 45% - Next Check: 2 weeks</li>
+                                    <li>🟡 Asset ID: PNL-003 (Panel) - Maintenance Due: 1 week</li>
+                                    <li>🔴Asset ID: GEN-003 (Generator) - Maintenance Overdue: 4 days</li>
+                                </ul>
+                            </ScrollArea>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Asset Health Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-4 flex-col">
+                            <div className="text-xl font-bold">Resources</div>
+                            <div className="text-sm font-bold text-green-400">Manpower and equipment Graph</div>
+                        </div>
+                        <div className="h-[150px] relative w-full px-2">
+                            {/* Dual Line Chart - Days on X, Values on Y */}
+                            <ChartContainer config={mtbfMtbrChartConfig} className="h-full w-full">
+                                <LineChart
+                                    data={mtbfMtbrData}
+                                    margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                                    width={undefined}
+                                    height={150}
+                                >
+                                    <CartesianGrid />
+                                    <XAxis
+                                        dataKey="day"
+                                        stroke="#6b7280"
+                                        fontSize={10}
+                                        tickLine={{ stroke: "#6b7280" }}
+                                        axisLine={{ stroke: "#6b7280" }}
+                                    />
+                                    <YAxis
+                                        stroke="#6b7280"
+                                        fontSize={10}
+                                        tickLine={{ stroke: "#6b7280" }}
+                                        axisLine={{ stroke: "#6b7280" }}
+                                        width={30}
+                                        domain={[1.5, 2.6]}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbf"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbr"
+                                        stroke="#10b981"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#10b981", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#10b981" }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbr"
+                                        stroke="#10b981"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#10b981", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#10b981" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Resources Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-4 flex-col">
+                            <div className="text-xl font-bold">Resources</div>
+                            <div className="text-sm font-bold text-green-400">Manpower and equipment Graph</div>
+                        </div>
+                        <div className="h-[150px] relative w-full px-2">
+                            {/* Triple Line Chart - Days on X, Values on Y */}
+                            <ChartContainer config={mtbfMtbrChartConfig} className="h-full w-full">
+                                <LineChart
+                                    data={mtbfMtbrData}
+                                    margin={{ top: 5, right: 5, left: 5, bottom: 5 }}
+                                    width={undefined}
+                                    height={150}
+                                >
+                                    <CartesianGrid />
+                                    <XAxis
+                                        dataKey="day"
+                                        stroke="#6b7280"
+                                        fontSize={10}
+                                        tickLine={{ stroke: "#6b7280" }}
+                                        axisLine={{ stroke: "#6b7280" }}
+                                    />
+                                    <YAxis
+                                        stroke="#6b7280"
+                                        fontSize={10}
+                                        tickLine={{ stroke: "#6b7280" }}
+                                        axisLine={{ stroke: "#6b7280" }}
+                                        width={30}
+                                        domain={[1.5, 2.9]}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbf"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mtbr"
+                                        stroke="#10b981"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#10b981", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#10b981" }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="mttf"
+                                        stroke="#f59e0b"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#f59e0b", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#f59e0b" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Cost Forecast Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-2 flex-col">
+                            <div className="text-3xl font-bold">Cost Forecast</div>
+                            <div className="text-md font-semibold text-green-400">Location wise cost graph</div>
+                        </div>
+                        <div className="h-[120px] relative px-4">
+                            {/* Mini Chart */}
+                            <ChartContainer config={chartConfig} className="h-full w-full">
+                                <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} height={120}>
+                                    <CartesianGrid />
+                                    <XAxis dataKey="day" hide />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                {/* Predictive Assets Card */}
+                <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
+                    <CardContent className="py-6 px-0">
+                        <div className="flex gap-3 px-2 flex-col">
+                            <div className="text-3xl font-bold">Predictive Assets</div>
+                            <div className="text-md font-semibold text-green-400">location wise graph</div>
+                        </div>
+                        <div className="h-[120px] relative px-4">
+                            {/* Mini Chart */}
+                            <ChartContainer config={chartConfig} className="h-full w-full">
+                                <LineChart data={ethereumData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }} height={120}>
+                                    <CartesianGrid />
+                                    <XAxis dataKey="day" hide />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="value"
+                                        stroke="#8b5cf6"
+                                        strokeWidth={2}
+                                        dot={{ fill: "#8b5cf6", strokeWidth: 2, r: 3 }}
+                                        activeDot={{ r: 4, fill: "#8b5cf6" }}
+                                    />
+                                </LineChart>
+                            </ChartContainer>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         </div>
     )
