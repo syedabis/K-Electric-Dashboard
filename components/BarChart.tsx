@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 
 import {
   Card,
@@ -20,12 +20,12 @@ import {
 export const description = "An interactive bar chart"
 
 const chartData = [
-  { date: "2024-04-01", desktop: 222, fill: "var(--chart-1)" },
-  { date: "2024-04-02", desktop: 97, fill: "var(--chart-2)" },
-  { date: "2024-04-03", desktop: 167, fill: "var(--chart-3)" },
-  { date: "2024-04-04", desktop: 242, fill: "var(--chart-4)" },
-  { date: "2024-04-05", desktop: 373, fill: "var(--chart-5)" },
-  { date: "2024-04-06", desktop: 301, fill: "var(--chart-1)" },
+  { date: "Known", desktop: 222, fill: "var(--chart-1)" },
+  { date: "Known - PM", desktop: 97, fill: "var(--chart-2)" },
+  { date: "Known - IS", desktop: 167, fill: "var(--chart-3)" },
+  { date: "Known Poor", desktop: 242, fill: "var(--chart-4)" },
+  { date: "Unknown - LR", desktop: 373, fill: "var(--chart-5)" },
+  { date: "Unknown - HR", desktop: 301, fill: "var(--chart-1)" },
 ]
 
 const chartConfig = {
@@ -69,13 +69,12 @@ export function ChartBarInteractive() {
               axisLine={false}
               tickMargin={8}
               minTickGap={32}
-              tickFormatter={(value) => {
-                const date = new Date(value)
-                return date.toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                })
-              }}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.toLocaleString()}
             />
             <ChartTooltip
               content={

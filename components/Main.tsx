@@ -1,6 +1,6 @@
 import React from 'react'
 import Assets from './Assets';
-import { ChartBarInteractive } from './HorizontalChart';
+import { ChartBarInteractive } from './BarChart';
 import { ChartLineInteractive } from './LineChart';
 
 const Main = () => {
