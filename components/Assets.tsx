@@ -89,7 +89,7 @@ const Assets = () => {
                 {/* Asset Utilization Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-2 flex-col">
+                        <div className="flex gap-1 mb-3 px-2 flex-col">
                             <div className="text-3xl font-bold">Asset Utilization</div>
                             <div className="text-3xl font-bold text-green-400">95%</div>
                         </div>
@@ -116,7 +116,7 @@ const Assets = () => {
                 {/* Total Assets Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-2 flex-col">
+                        <div className="flex gap-1 mb-3 px-2 flex-col">
                             <div className="text-3xl font-bold">Total Assets</div>
                             <div className="text-3xl font-bold text-green-400">100</div>
                         </div>
@@ -143,7 +143,7 @@ const Assets = () => {
                 {/* MTBF and MTBR Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-4 flex-col">
+                        <div className="flex gap-1 mb-3 px-4 flex-col">
                             <div className="text-xl font-bold">MTBF and MTBR</div>
                             <div className="text-xl font-bold text-green-400">2.1Hrs</div>
                         </div>
@@ -197,7 +197,7 @@ const Assets = () => {
                 {/* Alerts Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 flex-col px-2 mb-2">
+                        <div className="flex gap-1 mb-3 flex-col px-2">
                             <div className="text-3xl font-bold">Alerts</div>
                         </div>
                         <div className="h-auto relative px-4">
@@ -217,7 +217,7 @@ const Assets = () => {
                 {/* Asset Health Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-4 flex-col">
+                        <div className="flex gap-1 mb-3 px-4 flex-col">
                             <div className="text-xl font-bold">Resources</div>
                             <div className="text-sm font-bold text-green-400">Manpower and equipment Graph</div>
                         </div>
@@ -279,7 +279,7 @@ const Assets = () => {
                 {/* Resources Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-4 flex-col">
+                        <div className="flex gap-1 mb-3 px-4 flex-col">
                             <div className="text-xl font-bold">Resources</div>
                             <div className="text-sm font-bold text-green-400">Manpower and equipment Graph</div>
                         </div>
@@ -341,9 +341,9 @@ const Assets = () => {
                 {/* Cost Forecast Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-2 flex-col">
+                        <div className="flex gap-1 mb-3 px-2 flex-col">
                             <div className="text-3xl font-bold">Cost Forecast</div>
-                            <div className="text-md font-semibold text-green-400">Location wise cost graph</div>
+                            <div className="text-sm font-semibold text-green-400">Location wise cost graph</div>
                         </div>
                         <div className="h-[120px] relative px-4">
                             {/* Mini Chart */}
@@ -368,9 +368,9 @@ const Assets = () => {
                 {/* Predictive Assets Card */}
                 <Card className='rounded-3xl border-t border-l border-border p-0 overflow-hidden h-[250px]'>
                     <CardContent className="py-6 px-0">
-                        <div className="flex gap-3 px-2 flex-col">
+                        <div className="flex gap-1 mb-3 px-2 flex-col">
                             <div className="text-3xl font-bold">Predictive Assets</div>
-                            <div className="text-md font-semibold text-green-400">location wise graph</div>
+                            <div className="text-sm font-semibold text-green-400">location wise graph</div>
                         </div>
                         <div className="h-[120px] relative px-4">
                             {/* Mini Chart */}
